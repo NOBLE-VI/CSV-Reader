@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="css/home.css">
+
+<section id="all">
+
+<div id="csv-form">
+
+    <!-- getting files into form -->
+    <form action="/uploadcsv" method="post" enctype="multipart/form-data">
+        <!-- <label id="custom-input" for="csv">Upload CSV</label> -->
+        <input type="file" id="csv" name="csv" accept=".csv" multiple >
+        <button type="submit">Submit</button>
+
+    </form>
+
+    <!-- CSV files -->
+    <ul id="csv-list">
+        <% for(let i=0; i<locals.ExArray.length; i++) { %>
+            <% if(ExArray[i].endsWith(".csv")) {%>
+                <a href="/showCSV/<%= ExArray[i] %>">
+                    <li class="csv-file"> 
+                        <p><%= ExArray[i] %></p>
+                    </li>
+                    </a>
+            
+            <%}%>
+            
+
+        <% } %>
+        
+    </ul>
+
+</div>
+
+<div id="csv-table">
+
+    <span>Search :</span>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Company name..">
+
+
+    <table id="csvTable">
+
+        <tr id="csvHeader">
+            <%{%>
+                          
+            
+                <% for(const property in jsonobj[0]) {%>
+
+                    <th><%= property %></th>
+                
+                <%}%>
+        
+            
+            <%}%>
+            
+
+        </tr>
+
+
+        <%{%>
+
+        
+            <% for(let i=0; i< jsonobj.length; i++) {%>
+                <tr id="csvData">
+                    <% for(const property in jsonobj[i]) {%>
+
+                        
+                            <td><%= jsonobj[i][property] %></td>    
+                        
+                    
+                    <%}%>
+                </tr> 
+            <%}%>
+        
+            
+        <%}%>
+        
+
+
+    </table>
+</div>
+
+</section>
+
+<script src="/js/Search.js"></script>
